@@ -143,7 +143,7 @@ This project demonstrates a **production-ready test automation solution** for a 
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/demoblaze-playwright-framework.git
+git clone https://github.com/ahamedumar15/demoblaze-playwright-python-framework.git
 cd demoblaze-playwright-framework
 
 # Create and activate virtual environment
