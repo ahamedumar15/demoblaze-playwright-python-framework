@@ -280,6 +280,19 @@ jobs:
       - run: pytest -m smoke --browser=${{ matrix.browser }}
 ```
 
+### Docker Support
+
+```bash
+# Build Docker image
+docker build -t demoblaze-tests .
+
+# Run tests in container
+docker-compose up
+
+# Run with custom browser
+docker run -e BROWSER=firefox demoblaze-tests
+```
+
 
 ---
 
