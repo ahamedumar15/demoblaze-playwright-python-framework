@@ -257,42 +257,6 @@ tests/test_cart_checkout.py::TestCartCheckout::test_add_product_to_cart PASSED  
 - ⏱️ **Performance Metrics** - Execution time analysis
 - 📝 **Detailed Logs** - Step-by-step test execution traces
 
----
-
-## 🔄 CI/CD Integration
-
-### GitHub Actions Workflow
-
-```yaml
-name: Playwright E2E Tests
-on: [push, pull_request]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        browser: [chromium, firefox, webkit]
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-      - run: pip install -r requirements.txt
-      - run: playwright install --with-deps
-      - run: pytest -m smoke --browser=${{ matrix.browser }}
-```
-
-### Docker Support
-
-```bash
-# Build Docker image
-docker build -t demoblaze-tests .
-
-# Run tests in container
-docker-compose up
-
-# Run with custom browser
-docker run -e BROWSER=firefox demoblaze-tests
-```
-
 
 ---
 
@@ -328,20 +292,6 @@ docker run -e BROWSER=firefox demoblaze-tests
 ---
 
 
-
-##  Best Practices Implemented
-
-1. **No Hard-Coded Waits** - All waits are intelligent and condition-based
-2. **Comprehensive Error Handling** - Graceful failures with detailed messages
-3. **Screenshot Evidence** - Automatic capture on test failures
-4. **Modular Test Design** - Each test is independent and reusable
-5. **Clean Code Standards** - PEP 8 compliant Python code
-6. **Version Control** - Meaningful commit messages and branching strategy
-7. **Configuration Management** - Environment-based configuration
-8. **Test Data Isolation** - Each test generates unique data
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -354,11 +304,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 🙏 Acknowledgments
 
@@ -373,9 +319,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Umar Ahamed** - QA Automation Engineer
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/yourprofile)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/yourusername)
-[![Email](https://img.shields.io/badge/Email-Contact-red?style=for-the-badge&logo=gmail)](mailto:your.email@example.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/ahamed-umar/)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/ahamedumar15)
+[![Email](https://img.shields.io/badge/Email-Contact-red?style=for-the-badge&logo=gmail)](mailto:ahamedumar825@gmail.com)
 
 ---
 
@@ -386,13 +332,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Built with 💙 by Umar Ahamed**
 
 ![Profile Views](https://komarev.com/ghpvc/?username=ahamedumar15&color=brightgreen)
-![GitHub Stars](https://img.shields.io/github/stars/ahamedumar15/demoblaze-playwright-framework?style=social)
-![GitHub Forks](https://img.shields.io/github/forks/ahamedumar15/demoblaze-playwright-framework?style=social)
+![GitHub Stars](https://img.shields.io/github/stars/ahamedumar15/demoblaze-playwright-python-framework?style=social)
+![GitHub Forks](https://img.shields.io/github/forks/ahamedumar15/demoblaze-playwright-python-framework?style=social)
 
 </div>
 
 ---
 
-> **"Quality is not an act, it is a habit."** - Aristotle
 
 **This framework showcases my commitment to delivering high-quality, production-ready test automation solutions that drive continuous quality improvement in software development.**
