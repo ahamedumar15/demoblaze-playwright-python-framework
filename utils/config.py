@@ -37,14 +37,16 @@ class Locators:
     SIGNUP_LINK = "a#signin2"
 
     # Categories
-    PHONES_CATEGORY = "a:has-text('Phones')"
-    LAPTOPS_CATEGORY = "a:has-text('Laptops')"
-    MONITORS_CATEGORY = "a:has-text('Monitors')"
+    PHONES_CATEGORY = "a#itemc:has-text('Phones')"
+    LAPTOPS_CATEGORY = "a#itemc:has-text('Laptops')"
+    MONITORS_CATEGORY = "a#itemc:has-text('Monitors')"
 
     # Product list
     PRODUCT_CARD = ".card"
     PRODUCT_TITLE = ".card-title a"
     PRODUCT_PRICE = ".card-block h5"
+    NEXT_PAGE = "#next2"
+    PREVIOUS_PAGE = "#prev2"
 
     # Modals
     MODAL_TITLE = ".modal-title"
