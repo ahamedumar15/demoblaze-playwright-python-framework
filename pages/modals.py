@@ -13,16 +13,23 @@ class LoginModal(BasePage):
     def __init__(self, page: Page, base_url: str = "https://www.demoblaze.com"):
         super().__init__(page, base_url)
 
-    def login(self, username: str, password: str):
+    def login(self, username: str, password: str) -> str:
         """Perform login"""
         self.fill(Locators.LOGIN_USERNAME, username)
         self.fill(Locators.LOGIN_PASSWORD, password)
 
-        # Setup alert handler before clicking login
-        self.page.once("dialog", lambda dialog: dialog.accept())
+        alert_message = None
 
+        def handle_dialog(dialog):
+            nonlocal alert_message
+            alert_message = dialog.message
+            logger.info(f"Login alert: {alert_message}")
+            dialog.accept()
+
+        self.page.once("dialog", handle_dialog)
         self.click(Locators.LOGIN_SUBMIT)
-        self.page.wait_for_timeout(2000)
+        self.page.wait_for_timeout(1800)
+        return alert_message
 
     def close_modal(self):
         """Close login modal"""
@@ -41,7 +48,6 @@ class SignupModal(BasePage):
         self.fill(Locators.SIGNUP_USERNAME, username)
         self.fill(Locators.SIGNUP_PASSWORD, password)
 
-        # Setup alert handler
         alert_message = None
 
         def handle_dialog(dialog):
@@ -52,13 +58,7 @@ class SignupModal(BasePage):
 
         self.page.once("dialog", handle_dialog)
         self.click(Locators.SIGNUP_SUBMIT)
-
-        # Wait for alert to appear
-        try:
-            self.page.wait_for_event("dialog", timeout=5000)
-        except:
-            pass
-
+        self.page.wait_for_timeout(1800)
         return alert_message
 
     def close_modal(self):
@@ -89,12 +89,7 @@ class ContactModal(BasePage):
 
         self.page.once("dialog", handle_dialog)
         self.click(Locators.CONTACT_SUBMIT)
-
-        try:
-            self.page.wait_for_event("dialog", timeout=5000)
-        except:
-            pass
-
+        self.page.wait_for_timeout(1800)
         return alert_message
 
     def close_modal(self):
