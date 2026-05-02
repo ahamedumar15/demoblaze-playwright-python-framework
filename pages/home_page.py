@@ -25,6 +25,7 @@ class HomePage(BasePage):
 
     def click_cart(self):
         """Navigate to cart page"""
+        self.page.wait_for_timeout(800)
         self.click(Locators.CART_LINK)
         self.page.wait_for_url(f"{self.base_url}/cart.html")
 
@@ -45,7 +46,11 @@ class HomePage(BasePage):
 
     def is_logged_in(self) -> bool:
         """Check if user is logged in"""
-        return self.is_visible(Locators.LOGGED_USER)
+        for _ in range(8):
+            if self.is_visible(Locators.LOGGED_USER):
+                return True
+            self.page.wait_for_timeout(500)
+        return False
 
     def get_logged_username(self) -> str:
         """Get logged in username"""
@@ -66,17 +71,20 @@ class HomePage(BasePage):
             raise ValueError(f"Invalid category: {category}")
 
         self.click(category_map[category])
-        self.wait_for_element(Locators.PRODUCT_CARD)
+        self.wait_for_element(Locators.PRODUCT_TITLE, timeout=10000)
+        self.page.wait_for_timeout(1200)
 
     def get_all_products(self) -> list:
         """Get all product cards on current page"""
         products = []
-        product_elements = self.get_all_elements(Locators.PRODUCT_CARD)
+        self.wait_for_element(Locators.PRODUCT_TITLE, timeout=10000)
+        title_locators = self.page.locator(Locators.PRODUCT_TITLE).all()
 
-        for product in product_elements:
+        for title_locator in title_locators:
             try:
-                title = product.locator(Locators.PRODUCT_TITLE).inner_text()
-                price = product.locator(Locators.PRODUCT_PRICE).inner_text()
+                card = title_locator.locator("xpath=ancestor::div[contains(@class, 'card')]" ).first
+                title = title_locator.inner_text().strip()
+                price = card.locator(Locators.PRODUCT_PRICE).inner_text().strip()
                 products.append({"title": title, "price": price})
             except:
                 continue
@@ -87,7 +95,8 @@ class HomePage(BasePage):
     def click_product_by_name(self, product_name: str):
         """Click on a product by its name"""
         self.page.locator(f".card-title >> text={product_name}").first.click()
-        self.wait_for_element(".name")  # Wait until product page loads
+        self.page.wait_for_url("**/prod.html**", timeout=12000)
+        self.wait_for_element(".name", timeout=12000)  # Wait until product page loads
 
     def get_product_count(self) -> int:
         """Get count of visible products"""
@@ -95,12 +104,20 @@ class HomePage(BasePage):
 
     def click_next_page(self):
         """Click next button in pagination"""
-        if self.is_visible("#next2"):
-            self.click("#next2")
+        if self.is_visible(Locators.NEXT_PAGE):
+            self.click(Locators.NEXT_PAGE)
             self.wait_for_element(Locators.PRODUCT_CARD)
 
     def click_previous_page(self):
         """Click previous button in pagination"""
-        if self.is_visible("#prev2"):
-            self.click("#prev2")
+        if self.is_visible(Locators.PREVIOUS_PAGE):
+            self.click(Locators.PREVIOUS_PAGE)
             self.wait_for_element(Locators.PRODUCT_CARD)
+
+    def is_next_button_visible(self) -> bool:
+        """Check whether the next pagination button is visible"""
+        return self.is_visible(Locators.NEXT_PAGE)
+
+    def is_previous_button_visible(self) -> bool:
+        """Check whether the previous pagination button is visible"""
+        return self.is_visible(Locators.PREVIOUS_PAGE)
