@@ -1,343 +1,272 @@
 # DemoBlaze E-Commerce Test Automation Framework
 
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
-![Playwright](https://img.shields.io/badge/Playwright-1.45-green.svg)
-![Pytest](https://img.shields.io/badge/Pytest-8.3.3-red.svg)
-![Tests](https://img.shields.io/badge/Tests-45+-success.svg)
-![Coverage](https://img.shields.io/badge/Coverage-90%25-brightgreen.svg)
+![Playwright](https://img.shields.io/badge/Playwright-1.57.0-green.svg)
+![Pytest](https://img.shields.io/badge/Pytest-9.0.2-red.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-> **Enterprise-grade test automation framework** powered by Python, Playwright, and pytest. Showcases professional QA engineering expertise through robust framework architecture, comprehensive test coverage, and modern testing practices.
+A Python-based UI test automation framework for the DemoBlaze e-commerce application, built using Playwright and pytest. The framework follows the Page Object Model (POM) to ensure clean separation between test logic and browser interactions, with a focus on maintainability, scalability, and reliable execution.
 
-**🔗 Live Application Under Test:** [demoblaze.com](https://www.demoblaze.com/)
-
----
-
-##  Overview
-
-This project demonstrates a **production-ready test automation solution** for a modern e-commerce platform, implementing cutting-edge automation technologies and industry-proven testing methodologies. Built with scalability, maintainability, and reliability at its core.
-
-### Project Highlights
-
-- ✅ **45+ Automated Test Cases** validating end-to-end user journeys
-- ✅ **90%+ Test Coverage** across critical business flows
-- ✅ **70% Faster Test Execution** via intelligent parallelization
-- ✅ **Cross-Browser Support** (Chromium, Firefox, WebKit)
-- ✅ **Zero-Flake Tests** using Playwright's auto-wait mechanisms
-- ✅ **CI/CD Integrated** with GitHub Actions and Docker support
-- ✅ **Advanced Reporting** featuring HTML reports, Allure integration, and video evidence
+Application under test: https://www.demoblaze.com/
 
 ---
 
-## ⭐ Key Features
+## Overview
 
-### 🏗️ Framework Architecture
+This project demonstrates a practical QA automation framework designed to validate core e-commerce workflows.
 
-- **Page Object Model (POM)** - Maintainable separation between test logic and UI interactions
-- **Modular Design** - Highly reusable components across test suites
-- **Base Page Pattern** - DRY principle implementation for common page operations
-- **Data-Driven Framework** - Dynamic test data generation using Faker
-- **Configuration Management** - Centralized config with environment variable support
-
-### 🧪 Advanced Testing Features
-
-- **Parallel Test Execution** - pytest-xdist for concurrent multi-process testing
-- **Multi-Browser Testing** - Chromium, Firefox, and WebKit support out-of-the-box
-- **Headless & Headed Modes** - Flexible execution for CI/CD and debugging
-- **Auto-Wait Strategy** - Intelligent element waiting eliminates flaky tests
-- **Screenshot & Video Capture** - Automatic failure evidence collection
-- **Test Categorization** - Smart markers (smoke, regression, critical, slow)
-- **Comprehensive Logging** - Multi-level logging with detailed execution traces
-
-### 📊 Reporting & Quality Metrics
-
-- **HTML Test Reports** - Rich, interactive reports with pytest-html
-- **Allure Integration** - Enterprise-grade test reporting dashboards
-- **JUnit XML Reports** - Seamless CI/CD tool integration
-- **Visual Evidence** - Screenshots on failure with timestamp tracking
-- **Video Recordings** - Full test execution videos for failed scenarios
-- **Performance Metrics** - Execution time tracking and analysis
+Key focus areas:
+- Clean architecture using Page Object Model
+- Stable execution using Playwright auto-waiting
+- Structured test organization using pytest markers
+- CI/CD readiness with GitHub Actions and Docker
 
 ---
 
-## 🏛️ Architecture
+## Current Status
+
+- Smoke tests are implemented and passing
+- Regression, critical, and slow markers are available
+- CI workflows configured for automated runs and Allure reporting
+- Dockerized execution supported
+- Total tests: 42
+
+---
+
+## Scope
+
+The framework currently covers:
+
+- Authentication and session handling
+- Product catalog navigation and filtering
+- Product detail interactions
+- Cart operations and checkout flow
+- Contact form submission
+- Navigation and modal interactions
+
+---
+
+## Repository Layout
 
 ```
-┌──────────────────────────────────────────────────────────┐
-│                     Test Suite Layer                     │
-│  test_authentication.py | test_product_catalog.py        │
-│  test_cart_checkout.py | test_contact_form.py            │
-└────────────────────┬─────────────────────────────────────┘
-                     │
-┌────────────────────▼─────────────────────────────────────┐
-│                Page Object Model Layer                    │
-│  home_page.py | product_page.py | cart_page.py           │
-│  modals.py (LoginModal, SignupModal, OrderModal)         │
-└────────────────────┬─────────────────────────────────────┘
-                     │
-┌────────────────────▼─────────────────────────────────────┐
-│                  Base Page Layer                          │
-│  Common methods: click(), fill(), wait_for_element()     │
-│  Alert handling, screenshot capture, navigation          │
-└────────────────────┬─────────────────────────────────────┘
-                     │
-┌────────────────────▼─────────────────────────────────────┐
-│               Playwright Browser Engine                   │
-│    Cross-browser automation with auto-wait strategy      │
-└──────────────────────────────────────────────────────────┘
+conftest.py
+pytest.ini
+README.md
+requirements.txt
+Dockerfile
+docker-compose.yml
+.github/workflows/
+pages/
+tests/
+utils/
 ```
 
 ---
 
-## 📈 Test Coverage
+## Technology Stack
 
-### Comprehensive Test Matrix
-
-| Test Module | Test Cases | Coverage | Priority |
-|-------------|------------|----------|----------|
-| **Authentication & Session** | 7 | 95% | Critical |
-| **Product Catalog & Search** | 10 | 90% | High |
-| **Shopping Cart Management** | 11 | 92% | Critical |
-| **Checkout & Payment Flow** | 5 | 88% | Critical |
-| **Contact & Communication** | 4 | 85% | Medium |
-| **Navigation & UI** | 8 | 87% | High |
-| **Total** | **45+** | **91%** | - |
-
-### Test Scenario Coverage
-
-#### 🔐 Authentication Testing
-- ✅ User registration (valid credentials, duplicate users, empty fields)
-- ✅ Login functionality (successful, invalid credentials, session persistence)
-- ✅ Logout workflow
-- ✅ Session validation after page reload
-
-#### 🛍️ E-Commerce Flow Testing
-- ✅ Product browsing and category filtering (Phones, Laptops, Monitors)
-- ✅ Product detail viewing with price verification
-- ✅ Search functionality (valid products, empty search, special characters)
-- ✅ Add to cart operations (single, multiple, duplicate products)
-- ✅ Cart management (update quantity, remove items, calculate totals)
-- ✅ Checkout process with order placement
-- ✅ Payment form validation
-
-#### 🎯 Advanced Test Scenarios
-- ✅ Pagination testing (next/previous navigation)
-- ✅ Modal dialog interactions (Login, Signup, Contact, Order)
-- ✅ Contact form submission and validation
-- ✅ Price consistency across pages
-- ✅ Cart persistence across navigation
-- ✅ Cross-browser compatibility validation
-- ✅ Responsive design verification
+- Python
+- Playwright
+- pytest
+- pytest-playwright
+- pytest-xdist
+- pytest-html
+- allure-pytest
+- Faker
 
 ---
 
-## 🚀 Quick Start
+## Test Coverage
 
-### Prerequisites
+### Coverage Breakdown
 
-- **Python 3.8+** installed
-- **pip** package manager
-- **Git** for version control
+| Area | Tests | Focus |
+|------|------|-------|
+| Authentication | 6 | Login, signup, session |
+| Product Catalog | 9 | Filtering, listing |
+| Product Details | 5 | Validation |
+| Cart & Checkout | 10 | Cart and checkout flow |
+| Contact Form | 4 | Submission |
+| Navigation and UI | 8 | Modals and navigation |
+| Total | 42 | Core flows |
 
-### Installation & Setup
+### Coverage Highlights
+
+- End-to-end coverage of core user journeys
+- UI validation across multiple interaction paths
+- Cart state persistence validation
+- Form and modal interaction coverage
+- Marker-based execution strategy (smoke, regression, critical, slow)
+
+---
+
+## Prerequisites
+
+- Python 3.8 or later
+- pip
+- Git
+
+---
+
+## Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/ahamedumar15/demoblaze-playwright-python-framework.git
-cd demoblaze-playwright-framework
+cd demoblaze-playwright-python-framework
 
-# Create and activate virtual environment
 python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Install dependencies
+# Windows PowerShell
+.\venv\Scripts\Activate.ps1
+
 pip install -r requirements.txt
-
-# Install Playwright browsers
-playwright install
+python -m playwright install
 ```
 
-### Running Tests
+---
+
+## Running Tests
+
+Run all tests:
 
 ```bash
-# Run all tests with verbose output
-pytest -v
-
-# Run smoke tests (quick validation suite)
-pytest -m smoke -v
-
-# Run regression tests (comprehensive suite)
-pytest -m regression -v
-
-# Run critical path tests only
-pytest -m critical -v
-
-# Run tests with visible browser (headed mode)
-pytest --headed -v
-
-# Generate HTML report
-pytest --html=reports/report.html --self-contained-html
-
-# Run tests in parallel (faster execution)
-pytest -n auto -v
-
-# Run specific test module
-pytest tests/test_authentication.py -v
-
-# Run with Allure reporting
-pytest --alluredir=allure-results
-allure serve allure-results
-
-# Run on specific browser
-pytest --browser firefox -v
-pytest --browser webkit -v
+python -m pytest
 ```
 
----
-
-
-
-##  Technologies & Tools
-
-### Core Framework Stack
-
-- **Python 3.8+** - Modern programming language
-- **Playwright 1.45** - Next-generation browser automation
-- **pytest 8.3.3** - Powerful testing framework
-- **pytest-playwright** - Playwright integration for pytest
-- **pytest-xdist** - Distributed testing plugin
-- **pytest-html** - Beautiful HTML report generation
-
-### Supporting Libraries
-
-- **Faker** - Dynamic test data generation
-- **Allure-pytest** - Advanced reporting framework
-- **python-dotenv** - Environment configuration management
-- **logging** - Comprehensive test execution logging
-
-### DevOps & CI/CD
-
-- **GitHub Actions** - Automated CI/CD pipeline
-- **Docker** - Containerized test execution
-- **Allure** - Enterprise test reporting
-
-### Design Patterns Implemented
-
-- **Page Object Model (POM)** - UI abstraction pattern
-- **Factory Pattern** - Dynamic object creation
-- **Singleton Pattern** - WebDriver instance management
-- **Builder Pattern** - Complex test data construction
-
----
-
-##  Demo & Screenshots
-
-### Test Execution Demo
+Run specific suites:
 
 ```bash
-$ pytest -m smoke --headed -v
-
-=================== test session starts ===================
-collected 12 items / 33 deselected / 12 selected
-
-tests/test_authentication.py::TestAuthentication::test_successful_signup PASSED [  8%]
-tests/test_authentication.py::TestAuthentication::test_successful_login PASSED  [ 16%]
-tests/test_product_catalog.py::TestProductCatalog::test_home_page_loads_products PASSED [ 25%]
-tests/test_cart_checkout.py::TestCartCheckout::test_add_product_to_cart PASSED  [ 33%]
-...
-
-=================== 12 passed in 45.23s ===================
+python -m pytest -m smoke -v
+python -m pytest -m regression -v
+python -m pytest -m critical -v
+python -m pytest -m slow -v
 ```
 
-### Sample Test Report Features
+Run in parallel:
 
-- 📊 **Interactive Dashboard** - Visual pass/fail statistics
-- 🖼️ **Screenshot Gallery** - Failure evidence with timestamps
-- 📹 **Video Playback** - Watch test execution for failed scenarios
-- ⏱️ **Performance Metrics** - Execution time analysis
-- 📝 **Detailed Logs** - Step-by-step test execution traces
+```bash
+python -m pytest -n auto -v
+```
 
+Generate reports:
 
----
-
-## 🎓 Skills & Competencies Demonstrated
-
-### Technical Expertise
-
-- ✅ **Python Programming** - OOP, type hints, decorators, context managers
-- ✅ **Playwright Automation** - Modern browser automation with auto-wait
-- ✅ **pytest Framework** - Fixtures, markers, parametrization, plugins
-- ✅ **Page Object Model** - Scalable test automation architecture
-- ✅ **API Testing Knowledge** - Ready for REST API integration
-- ✅ **CI/CD Pipeline Design** - GitHub Actions, Docker containerization
-- ✅ **Version Control** - Git workflows and best practices
-
-
+```bash
+python -m pytest --html=reports/report.html --self-contained-html
+python -m pytest --alluredir=allure-results
+```
 
 ---
 
-##  Framework Advantages
+## Reporting
 
-### Why This Framework Stands Out
+- HTML reports in reports/
+- Allure results in allure-results/
 
-| Feature | Traditional Selenium | This Playwright Framework |
-|---------|---------------------|---------------------------|
-| **Auto-Wait** | Manual waits required | Built-in auto-wait ✅ |
-| **Speed** | Slower | 30-50% faster ✅ |
-| **Flakiness** | Common issue | Near-zero flakes ✅ |
-| **Multi-Browser** | Limited | Full support ✅ |
-| **Video Recording** | Requires setup | Built-in ✅ |
-| **Network Control** | Complex | Simple API ✅ |
+CI configuration:
+.github/workflows/allure-report.yml
 
 ---
 
+## Continuous Integration and Docker
 
-## 🤝 Contributing
+- CI pipeline: .github/workflows/ci.yml
+- Allure publishing: .github/workflows/allure-report.yml
+- Docker: Dockerfile, docker-compose.yml
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Run using Docker:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-
-
-## 🙏 Acknowledgments
-
-- **DemoBlaze** - Excellent practice platform for test automation
-- **Playwright Community** - Outstanding documentation and support
-- **pytest Community** - Robust testing framework and ecosystem
-- **Open Source Contributors** - All the amazing tools and libraries used
+```bash
+docker compose up --build
+```
 
 ---
 
-## 📞 Contact
+## Framework Design
 
-**Umar Ahamed** - QA Automation Engineer
+The framework follows the Page Object Model.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/ahamed-umar/)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/ahamedumar15)
-[![Email](https://img.shields.io/badge/Email-Contact-red?style=for-the-badge&logo=gmail)](mailto:ahamedumar825@gmail.com)
-
----
-
-<div align="center">
-
-### ⭐ If you found this project helpful, please give it a star!
-
-**Built with 💙 by Umar Ahamed**
-
-![Profile Views](https://komarev.com/ghpvc/?username=ahamedumar15&color=brightgreen)
-![GitHub Stars](https://img.shields.io/github/stars/ahamedumar15/demoblaze-playwright-python-framework?style=social)
-![GitHub Forks](https://img.shields.io/github/forks/ahamedumar15/demoblaze-playwright-python-framework?style=social)
-
-</div>
+- pages/base_page.py: shared browser actions
+- pages/home_page.py: catalog navigation
+- pages/product_page.py: product interactions
+- pages/cart_page.py: cart operations
+- pages/modals.py: modal handling
 
 ---
 
+## Test Data and Utilities
 
-**This framework showcases my commitment to delivering high-quality, production-ready test automation solutions that drive continuous quality improvement in software development.**
+- utils/config.py: configuration and locators
+- utils/test_data.py: test data
+- utils/helpers.py: shared helper functions
+
+---
+
+## Skills and Competencies Demonstrated
+
+### Automation
+- Playwright UI automation
+- pytest (fixtures, markers, parametrization)
+- Cross-browser testing
+- Parallel execution
+- Debugging using screenshots and traces
+
+### Programming
+- Python-based automation
+- Modular framework design
+- Reusable abstraction layers
+
+### DevOps
+- GitHub Actions CI/CD
+- Docker-based execution
+- Allure reporting
+
+### QA Engineering Practices
+- Test categorization
+- Maintainable POM architecture
+- Stable execution with reduced flakiness
+- Separation of concerns
+
+---
+
+## Future Improvements
+
+- API testing integration
+- External test data management
+- Visual regression testing
+- Performance testing hooks
+- Flakiness detection strategies
+
+---
+
+## Notes
+
+- Reflects the current working state of the repository
+- Designed for portfolio and internship evaluation
+- Focused on practical QA implementation
+
+---
+
+## Conclusion
+
+This project demonstrates a structured QA automation framework using modern tools and practices.
+
+It highlights:
+- Practical Playwright and pytest implementation
+- Scalable and maintainable test design
+- CI/CD integration
+- Emphasis on reliability and clarity
+
+---
+
+## Contact
+
+Umar Ahamed  
+QA Automation Engineer  
+
+GitHub: https://github.com/ahamedumar15  
+LinkedIn: https://www.linkedin.com/in/ahamed-umar/  
+Email: ahamedumar825@gmail.com  
+
+---
+
+If you found this project useful, consider giving it a star.
