@@ -14,7 +14,7 @@ class BasePage:
 
     def navigate(self, path: str = ""):
         url = f"{self.base_url}/{path}".rstrip("/")
-        self.page.goto(url)
+        self.page.goto(url, wait_until="domcontentloaded")
         logger.info(f"Navigated to {url}")
 
     def click(self, locator: str):
@@ -36,12 +36,16 @@ class BasePage:
         return visible
 
     def get_all_elements(self, locator: str) -> list:
-        elements = self.page.locator(locator).all()
+        target = self.page.locator(locator)
+        if target.count() == 0:
+            self.page.wait_for_timeout(1000)
+        elements = target.all()
         logger.info(f"Found {len(elements)} elements with locator: {locator}")
         return elements
 
     def wait_for_element(self, locator: str, state: str = "visible", timeout: int = 5000):
-        self.page.locator(locator).wait_for(state=state, timeout=timeout)
+        # Use the first match to avoid strict-mode violations on multi-match selectors.
+        self.page.locator(locator).first.wait_for(state=state, timeout=timeout)
         logger.info(f"Waited for element {locator} to be {state}")
 
     def wait_for_url(self, url: str, timeout: int = 5000):
