@@ -35,8 +35,11 @@ def screenshot_on_failure(request, page: Page):
         screenshot_dir = "screenshots"
         os.makedirs(screenshot_dir, exist_ok=True)
         screenshot_path = f"{screenshot_dir}/{request.node.name}_{timestamp}.png"
-        page.screenshot(path=screenshot_path)
-        print(f"\nScreenshot saved: {screenshot_path}")
+        try:
+            page.screenshot(path=screenshot_path, timeout=5000)
+            print(f"\nScreenshot saved: {screenshot_path}")
+        except Exception as ex:
+            print(f"\nScreenshot capture failed for {request.node.name}: {ex}")
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
@@ -56,8 +59,8 @@ def base_url():
 @pytest.fixture
 def unique_username():
     """Generate unique username for testing"""
-    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-    return f"testuser_{timestamp}"
+    timestamp = datetime.now().strftime("%H%M%S%f")
+    return f"tu_{timestamp}"
 
 
 @pytest.fixture
