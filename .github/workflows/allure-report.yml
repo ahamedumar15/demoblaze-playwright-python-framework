@@ -34,9 +34,20 @@ jobs:
         run: |
           python -m pytest -m smoke -v --alluredir=allure-results
 
+      # Prevent failure on first run when gh-pages doesn't exist yet
+      - name: Check if gh-pages exists
+        if: always()
+        id: ghpages
+        run: |
+          if git ls-remote --exit-code --heads origin gh-pages; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Get Allure history
         uses: actions/checkout@v4
-        if: always()
+        if: always() && steps.ghpages.outputs.exists == 'true'
         continue-on-error: true
         with:
           ref: gh-pages
