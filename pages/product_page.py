@@ -39,12 +39,11 @@ class ProductPage(BasePage):
 
         self.page.once("dialog", handle_dialog)
         self.click(Locators.ADD_TO_CART_BTN)
-
         try:
-            self.page.wait_for_event("dialog", timeout=5000)
+            self.page.wait_for_response(lambda response: "addtocart" in response.url and response.ok, timeout=8000)
         except:
             pass
-
+        self.page.wait_for_timeout(1500)
         return alert_message
 
     def click_home(self):
