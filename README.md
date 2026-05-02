@@ -238,14 +238,6 @@ The framework follows the Page Object Model.
 
 ---
 
-## Notes
-
-- Reflects the current working state of the repository
-- Designed for portfolio and internship evaluation
-- Focused on practical QA implementation
-
----
-
 ## Conclusion
 
 This project demonstrates a structured QA automation framework using modern tools and practices.
@@ -269,4 +261,4 @@ Email: ahamedumar825@gmail.com
 
 ---
 
-If you found this project useful, consider giving it a star.
+If you found this project useful, consider giving it a star:))
