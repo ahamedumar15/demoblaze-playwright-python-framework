@@ -16,6 +16,12 @@ class CartPage(BasePage):
     def get_cart_products(self) -> list:
         """Get all products in cart"""
         products = []
+
+        for _ in range(6):
+            if self.page.locator(Locators.CART_PRODUCT_ROW).count() > 0:
+                break
+            self.page.wait_for_timeout(500)
+
         product_rows = self.get_all_elements(Locators.CART_PRODUCT_ROW)
 
         for row in product_rows:
@@ -31,7 +37,13 @@ class CartPage(BasePage):
 
     def get_cart_product_count(self) -> int:
         """Get number of products in cart"""
-        return len(self.get_all_elements(Locators.CART_PRODUCT_ROW))
+        rows = self.page.locator(Locators.CART_PRODUCT_ROW)
+        for _ in range(6):
+            count = rows.count()
+            if count > 0:
+                return count
+            self.page.wait_for_timeout(500)
+        return rows.count()
 
     def get_total_price(self) -> str:
         """Get total cart price"""
@@ -39,6 +51,11 @@ class CartPage(BasePage):
 
     def delete_product_by_title(self, product_title: str):
         """Delete specific product from cart"""
+        for _ in range(6):
+            if self.page.locator(Locators.CART_PRODUCT_ROW).count() > 0:
+                break
+            self.page.wait_for_timeout(500)
+
         product_rows = self.get_all_elements(Locators.CART_PRODUCT_ROW)
         for row in product_rows:
             title = row.locator(Locators.CART_PRODUCT_TITLE).inner_text()
